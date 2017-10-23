@@ -94,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       shop-select > select {
         font-size: 16px;
-        padding: 16px 24px 16px 70px;
+        padding: 16px 24px 16px 100px;
       }
 
       @media (max-width: 767px) {
@@ -153,29 +153,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <shop-image alt="[[item.title]]" src="[[item.largeImage]]"></shop-image>
       <div class="detail" has-content$="[[_isDefined(item)]]">
         <h1>[[item.title]]</h1>
-        <div class="price">[[_formatPrice(item.price)]]</div>
+        <div class="price">[[_formatPrice(item.price)]] per doos</div>
         <div class="pickers">
           <shop-select>
-            <label id="sizeLabel" prefix>Size</label>
-            <select id="sizeSelect" aria-labelledby="sizeLabel">
-              <option value="XS">XS</option>
-              <option value="S">S</option>
-              <option value="M" selected>M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-            </select>
-            <shop-md-decorator aria-hidden="true">
-              <shop-underline></shop-underline>
-            </shop-md-decorator>
-          </shop-select>
-          <shop-select>
-            <label id="quantityLabel" prefix>Quantity</label>
+            <label id="quantityLabel" prefix>Aantal dozen</label>
             <select id="quantitySelect" aria-labelledby="quantityLabel">
               <option value="1" selected>1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
+              <option value="6">6</option>
             </select>
             <shop-md-decorator aria-hidden="true">
               <shop-underline></shop-underline>
@@ -183,11 +171,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </shop-select>
         </div>
         <div class="description">
-          <h2>Description</h2>
+          <h2>Informatie</h2>
           <p id="desc"></p>
         </div>
         <shop-button responsive>
-          <button on-click="_addToCart" aria-label="Add this item to cart">Add to Cart</button>
+          <button on-click="_addToCart" aria-label="Add this item to cart">Voeg toe aan winkelmandje</button>
         </shop-button>
       </div>
     </div>
@@ -264,7 +252,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _formatPrice(price) {
-        return price ? '$' + price.toFixed(2) : '';
+        return price ? '€' + price.toFixed(2) : '';
       }
 
       _addToCart() {
@@ -272,8 +260,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.dispatchEvent(new CustomEvent('add-cart-item', {
           bubbles: true, composed: true, detail: {
             item: this.item,
-            quantity: parseInt(this.$.quantitySelect.value, 10),
-            size: this.$.sizeSelect.value
+            quantity: parseInt(this.$.quantitySelect.value, 10)
           }}));
       }
 
